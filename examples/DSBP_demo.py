@@ -24,8 +24,10 @@ from ritsar import phsRead
 from ritsar import imgTools
 
 #%%
+''' Something about this demo appears to have broken on the back end, not sure what yet
 #simulated DSBP demo
 ##############################################################################
+
 #Create platform dictionary
 platform = plat_dict()
 
@@ -68,7 +70,7 @@ imgTools.imshow(img_DSBP, dB_scale = [-25,0], extent = extent)
 plt.xlabel('meters'); plt.ylabel('meters')
 plt.tight_layout()
 
-
+'''
 #%%
 
 #AFRL DSBP demo
@@ -109,6 +111,7 @@ plt.xlabel('meters'); plt.ylabel('meters')
 plt.tight_layout()
 
 #%%
+''' Need spectral.envi to load the DIRSIG data
 #DIRSIG DSBP demo
 ###############################################################################
 #Define directory containing *.au2 and *.phs files
@@ -144,3 +147,5 @@ plt.title('Digital Spotlight Backprojection')
 imgTools.imshow(img_DSBP, dB_scale = [-25,0], extent = extent)
 plt.xlabel('meters'); plt.ylabel('meters')
 plt.tight_layout()
+
+'''

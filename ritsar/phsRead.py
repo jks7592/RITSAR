@@ -7,42 +7,6 @@ import os
 import scipy.io as sio 
 import xml.etree.ElementTree as ET
 
-#%%
-#https://stackoverflow.com/questions/7008608/scipy-io-loadmat-nested-structures-i-e-dictionaries
-#User: mergen Date: 17 Jan 2012 Accessed: April 2019.
-#import scipy.io as sio # in import section already
-def mergenloadmat(filename):
-    '''
-    this function should be called instead of direct spio.loadmat
-    as it cures the problem of not properly recovering python dictionaries
-    from mat files. It calls the function check keys to cure all entries
-    which are still mat-objects
-    '''
-    data = sio.loadmat(filename, struct_as_record=False, squeeze_me=True)
-    return _check_keys(data)
-
-def _check_keys(dictdata):
-    '''
-    checks if entries in dictionary are mat-objects. If yes
-    todict is called to change them to nested dictionaries
-    '''
-    for key in dictdata:
-        if isinstance(dictdata[key], sio.matlab.mio5_params.mat_struct):
-            dictdata[key] = _todict(dictdata[key])
-    return dictdata        
-
-def _todict(matobj):
-    '''
-    A recursive function which constructs from matobjects nested dictionaries
-    '''
-    dictdata = {}
-    for strg in matobj._fieldnames:
-        elem = matobj.__dict__[strg]
-        if isinstance(elem, sio.matlab.mio5_params.mat_struct):
-            dictdata[strg] = _todict(elem)
-        else:
-            dictdata[strg] = elem
-    return dictdata
 
 #%%
 
@@ -85,7 +49,7 @@ def AFRL(directory, start_az, pol=False, n_az=3):
     phs = []; platform = []
     for fname in sorted(fnames):
         #Convert MATLAB structure to Python dictionary
-        data=mergenloadmat(fname)['data']
+        data=sio.loadmat(fname, simplify_cells=True)['data']
 
         #Define phase history
         keys=data.keys()

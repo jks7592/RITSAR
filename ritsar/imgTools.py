@@ -203,7 +203,7 @@ def subaperture(phs,platform,pulses=False,angle=False,keep_R_c=False):
     pulses : int, optional
         Number of pulses to use for each subaperture. Simply performs a slice
         with the same number of pulses in each aperture. Default is false.
-    angle : floatf, optional
+    angle : float, optional
         Minimum subtended angle (degrees) for each subaperture. This first 
         calculates the change in angle between pulses then groups pulses with a 
         cumulative sum between integer multiples of the input angle plus the average
